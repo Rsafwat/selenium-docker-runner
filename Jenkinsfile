@@ -2,31 +2,16 @@ pipeline{
 
 agent any
 stages{
-stage('stage-1'){
+stage('Run Test'){
     steps{
-   echo "doing mvn clean"
-   echo "doing mvn package"
-
-
+   sh "docker-compose up"
     }
 }
-stage('stage-2'){
+stage('Bring down grid'){
 steps{
-echo "building docker image"
-
-}
-}
-stage('stage-3'){
-steps{
-echo "pushing docker image"
-
-}
+sh "docker-compose down"
 }
 
 }
-post{
-always{
-    echo "cleaning up resources"
-}
-}
+
 }
