@@ -12,14 +12,16 @@ pipeline {
         stage('Run tests') {
             steps {
                 sh "docker-compose -f test-suites.yaml up --pull=always"
-            }
+        
             script {
                 // if there are test failures, mark the Jenkins build as failed
                 if (fileExists('output/flight-reservation/testng-failed.xml') || fileExists('output/vendor-portal/testng-failed.xml')) {
                     error("Test failures detected.")
                 }
-            }
+            
         }
+    }
+    }
     }
     post {
         always {
