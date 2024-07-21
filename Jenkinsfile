@@ -13,12 +13,13 @@ pipeline {
             steps {
                 sh "docker-compose -f test-suites.yaml up --pull=always"
             }
-            script
-            {
-if(fileExists('output/flight-reservation/testng-failed.xml')||fileExists('output/vendor-portal/testng-failed.xml'))
+            
+           script {    // if there is a test failures mark the jenkins build as failed
 
+                if (fileExists('output/flight-reservation/testng-failed.xml') || fileExists('output/vendor-portal/testng-failed.xml')) 
+                
             }
-        }
+      }
     }
     post {
         always {
