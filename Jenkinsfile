@@ -9,7 +9,7 @@ stage('Start the Grid'){
 }
 stage('Run tests'){
  steps{
-   sh "docker-compose -f test-suites up"
+   sh "docker-compose -f test-suites.yaml up"
     }
 }
 
@@ -19,7 +19,7 @@ post
 always
 {
 sh "docker-compose -f grid.yaml down"
-sh "docker-compose -f test-suites down"
+sh "docker-compose -f test-suites.yaml down"
 }
 
 
