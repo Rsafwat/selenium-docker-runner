@@ -1,0 +1,20 @@
+version: "3"
+services:
+  vendor-portal:
+    image: rokaya1525/selenium  
+    environment:
+      - BROWSER=chrome
+      - HUB_HOST=hub
+      - THREAD_COUNT=2
+      - TEST_SUITE=vendor-portal.xml
+    volumes:
+      - ./output/vendor-portal:/home/selenuim-docker/test-output
+  flight-reservation:
+    image: rokaya1525/selenium  
+    environment:
+    - BROWSER=firefox
+    - HUB_HOST=hub
+    - THREAD_COUNT=2
+    - TEST_SUITE=flight-reservation.xml
+    volumes:
+    - ./output/flight-reservation:/home/selenuim-docker/test-output     
