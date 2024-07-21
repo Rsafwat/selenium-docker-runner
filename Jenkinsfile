@@ -6,20 +6,20 @@ pipeline {
     stages {
         stage('Start the Grid') {
             steps {
-                sh "docker-compose -f grid.yaml up --scale ${params.BROWSER}=2  -d"
+                sh "docker-compose -f grid.yaml up --scale ${params.BROWSER}=2 -d"
             }
         }
         stage('Run tests') {
             steps {
                 sh "docker-compose -f test-suites.yaml up --pull=always"
             }
-            
-           script {    // if there is a test failures mark the jenkins build as failed
-
-                if (fileExists('output/flight-reservation/testng-failed.xml') || fileExists('output/vendor-portal/testng-failed.xml')) 
-                
+            script {
+                // if there are test failures, mark the Jenkins build as failed
+                if (fileExists('output/flight-reservation/testng-failed.xml') || fileExists('output/vendor-portal/testng-failed.xml')) {
+                    error("Test failures detected.")
+                }
             }
-      }
+        }
     }
     post {
         always {
